@@ -54,6 +54,72 @@ body {
     font-size:24px;
     float:left;
 }
+.locations-wrapper{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-top:20px;
+}
+
+.location-box{
+    background:#fff;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.location-box h3{
+    margin-bottom:15px;
+    color:#222;
+}
+
+.location-card{
+    background:#f8f9fa;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+    transition:.3s;
+}
+
+.location-card:hover{
+    transform:translateY(-3px);
+    background:#eef3ff;
+}
+
+.map-box{
+    margin-top:30px;
+    background:#fff;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.map-box iframe{
+    width:100%;
+    height:300px;
+    border:0;
+    border-radius:12px;
+    margin-top:10px;
+}
+
+/* ریسپانسیو */
+@media(max-width:768px){
+    .locations-wrapper{
+        grid-template-columns:1fr;
+    }
+}
+.haram-map{
+    margin-top:15px;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.haram-map img{
+    width:100%;
+    display:block;
+    border-radius:15px;
+}
 </style>
 
 </head>
@@ -249,6 +315,64 @@ body {
 
     </div>
 
+</section>
+<!-- مکان‌های برگزاری -->
+<section id="locations" class="locations">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>مکان‌های برگزاری نماز جمعه</h2>
+        </div>
+
+        <div class="locations-wrapper">
+
+            <!-- برادران -->
+            <div class="location-box men">
+                <h3>🧑 بخش برادران</h3>
+
+                <div class="location-card">
+                    <h4>مصلی امام خمینی (ره)</h4>
+                    <p>محل اصلی برگزاری نماز جمعه ویژه برادران</p>
+                    <span>📍 مشهد، بلوار مصلی</span>
+                </div>
+
+                <div class="location-card">
+                    <h4>حرم مطهر رضوی (صحن انقلاب)</h4>
+                    <p>برگزاری مراسم‌های ویژه و مناسبتی</p>
+                    <span>📍 حرم امام رضا (ع)</span>
+                </div>
+            </div>
+
+            <!-- خواهران -->
+            <div class="location-box women">
+                <h3>🧕 بخش خواهران</h3>
+
+                <div class="location-card">
+                    <h4>رواق حضرت زهرا (س)</h4>
+                    <p>ویژه برگزاری نماز و برنامه‌های بانوان</p>
+                    <span>📍 حرم مطهر رضوی</span>
+                </div>
+
+                <div class="location-card">
+                    <h4>شبستان خواهران مصلی</h4>
+                    <p>فضای اختصاصی بانوان در مصلی</p>
+                    <span>📍 مصلی مشهد</span>
+                </div>
+            </div>
+
+        </div>
+
+      
+<!-- نقشه حرم مطهر -->
+<div class="map-box">
+    <h3>🗺 نقشه حرم مطهر امام رضا (ع)</h3>
+
+    <div class="haram-map">
+        <img src="https://gardeshgari.blog/wp-content/uploads/2023/08/%D9%86%D9%82%D8%B4%D9%87-%D8%B5%D8%AD%D9%86-%D9%87%D8%A7%DB%8C-%D8%AD%D8%B1%D9%85-%D8%A7%D9%85%D8%A7%D9%85-%D8%B1%D8%B6%D8%A7.webp" alt="نقشه حرم امام رضا (ع)">
+    </div>
+</div>
+
+    </div>
 </section>
     <!-- گالری -->
     <section id="galri" class="gallery">
