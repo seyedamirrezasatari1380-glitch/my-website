@@ -121,6 +121,76 @@ body {
     border-radius:15px;
       height: 22rem;
 }
+  .locations-wrapper{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-top:20px;
+}
+
+.location-box{
+    background:#fff;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.location-box h3{
+    margin-bottom:15px;
+    color:#222;
+}
+
+.location-card{
+    background:#f8f9fa;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+    transition:.3s;
+}
+
+.location-card:hover{
+    transform:translateY(-3px);
+    background:#eef3ff;
+}
+
+.map-box{
+    margin-top:30px;
+    background:#fff;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.map-box iframe{
+    width:100%;
+    height:300px;
+    border:0;
+    border-radius:12px;
+    margin-top:10px;
+}
+
+/* ریسپانسیو */
+@media(max-width:768px){
+    .locations-wrapper{
+        grid-template-columns:1fr;
+    }
+}
+.haram-map{
+    margin-top:15px;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.haram-map div{
+    width:100%;
+    display:block;
+    border-radius:15px;
+    height: 35rem;
+    background-image: url('./assets/images/ChatGPT Image Jun 14, 2026, 04_16_17 PM.png' );
+    background-size: cover;
+    
+}
 .hero{
                     background-image: url("https://file1.lanmis.com/d/2_2_01ad4874-cc07-443a-80e6-9b5aac86541c.png")!important;
                     padding:0;
@@ -328,6 +398,7 @@ body {
 
 </section>
 <!-- مکان‌های برگزاری -->
+
 <section id="locations" class="locations">
     <div class="container">
 
@@ -336,23 +407,6 @@ body {
         </div>
 
         <div class="locations-wrapper">
-
-            <!-- برادران -->
-            <div class="location-box men">
-                <h3>🧑 بخش برادران</h3>
-
-                <div class="location-card">
-                    <h4>مصلی امام خمینی (ره)</h4>
-                    <p>محل اصلی برگزاری نماز جمعه ویژه برادران</p>
-                    <span>📍 مشهد، بلوار مصلی</span>
-                </div>
-
-                <div class="location-card">
-                    <h4>حرم مطهر رضوی (صحن انقلاب)</h4>
-                    <p>برگزاری مراسم‌های ویژه و مناسبتی</p>
-                    <span>📍 حرم امام رضا (ع)</span>
-                </div>
-            </div>
 
             <!-- خواهران -->
             <div class="location-box women">
@@ -370,6 +424,23 @@ body {
                     <span>📍 مصلی مشهد</span>
                 </div>
             </div>
+            <!-- برادران -->
+            <div class="location-box men">
+                <h3>🧑 بخش برادران</h3>
+
+                <div class="location-card">
+                    <h4>مصلی امام خمینی (ره)</h4>
+                    <p>محل اصلی برگزاری نماز جمعه ویژه برادران</p>
+                    <span>📍 مشهد، بلوار مصلی</span>
+                </div>
+
+                <div class="location-card">
+                    <h4>حرم مطهر رضوی (صحن انقلاب)</h4>
+                    <p>برگزاری مراسم‌های ویژه و مناسبتی</p>
+                    <span>📍 حرم امام رضا (ع)</span>
+                </div>
+            </div>
+
 
         </div>
 
@@ -379,11 +450,12 @@ body {
     <h3>🗺 نقشه حرم مطهر امام رضا (ع)</h3>
 
     <div class="haram-map">
-        <img src="https://gardeshgari.blog/wp-content/uploads/2023/08/%D9%86%D9%82%D8%B4%D9%87-%D8%B5%D8%AD%D9%86-%D9%87%D8%A7%DB%8C-%D8%AD%D8%B1%D9%85-%D8%A7%D9%85%D8%A7%D9%85-%D8%B1%D8%B6%D8%A7.webp" alt="نقشه حرم امام رضا (ع)">
+        <div   alt="نقشه حرم امام رضا (ع)"></div>
     </div>
 </div>
 
     </div>
+</section>
 </section>
     <!-- گالری -->
     <section id="galri" class="gallery">
