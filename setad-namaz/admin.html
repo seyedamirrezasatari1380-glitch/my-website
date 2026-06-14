@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پنل ادمین حرفه‌ای</title>
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<style>
+body { font-family: Tahoma, sans-serif; background:#f0f4f8; padding:20px; direction:rtl; }
+h1 { text-align:center; margin-bottom:20px; }
+.sections-container, .users-container, .blocked-container { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+.section-card, .user-card { padding:15px; border-radius:12px; cursor:pointer; box-shadow:0 4px 15px rgba(0,0,0,0.15); transition:0.3s; }
+.section-card { background:linear-gradient(135deg,#6a11cb,#2575fc); color:#fff; width:160px; text-align:center; }
+.section-card:hover { transform:translateY(-3px); }
+.user-card, .blocked-card { background:#fff; color:#333; width:240px; }
+.user-card:hover, .blocked-card:hover { transform:translateY(-3px); box-shadow:0 6px 20px rgba(0,0,0,0.2); }
+.user-card .actions, .blocked-card .actions { margin-top:10px; display:flex; gap:5px; }
+.user-card button, .blocked-card button { flex:1; padding:6px; border-radius:6px; border:none; cursor:pointer; }
+.reply-btn { background:#1e90ff;color:#fff; }
+.delete-btn { background:#ff6b81;color:#fff; }
+.block-btn { background:#ffa502;color:#fff; }
+.unblock-btn { background:#2ed573;color:#fff; }
+#chat-popup { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); width:420px; max-height:520px; background:#fff; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.35); flex-direction:column; overflow:hidden; z-index:1000; }
+#chat-popup-header { background:#2575fc; color:#fff; padding:12px; font-weight:bold; display:flex; justify-content:space-between; align-items:center; }
+#chat-messages { flex:1; padding:12px; overflow-y:auto; display:flex; flex-direction:column; gap:5px; background:#f7f9fc; }
+.chat-message { padding:10px 14px; border-radius:10px; max-width:80%; word-break:break-word; font-size:14px; }
+.chat-message.client { background:#e5e5ea; align-self:flex-start; color:#333; }
+.chat-message.admin { background:#1e90ff; align-self:flex-end; color:#fff; }
+#chat-input { display:flex; border-top:1px solid #ccc; padding:8px; background:#f0f0f0; }
+#chat-input input { flex:1; padding:8px; border:1px solid #ccc; border-radius:6px; }
+#chat-input button { padding:8px 12px; border:none; background:#2ed573; color:#fff; cursor:pointer; border-radius:6px; }
+.back-btn { margin-bottom:10px; cursor:pointer; color:#1e90ff; font-weight:bold; }
+.unread-count { font-size:12px; font-weight:bold; color:#ff4757; margin-top:5px; text-align:center; }
+.tabs { display:flex; justify-content:center; gap:10px; margin-bottom:20px; }
+.tab { padding:8px 16px; border-radius:8px; background:#fff; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.15); }
+.tab.active { background:#2575fc; color:#fff; }
+</style>
+</head>
+<body>
+<h1>پنل ادمین حرفه‌ای</h1>
+<div class="tabs">
+  <div class="tab active" data-tab="sections" onclick="switchTab('sections')">بخش‌ها</div>
+  <div class="tab" data-tab="blocked" onclick="switchTab('blocked')">کاربران مسدود</div>
+</div>
+
+<div id="sections-tab">
+  <div class="sections-container" id="sections"></div>
+  <div id="users-page" style="display:none;">
+    <div class="back-btn" onclick="showSections()">&larr; بازگشت به بخش‌ها</div>
+    <div class="users-container" id="users"></div>
+  </div>
+</div>
+
+<div id="blocked-tab" style="display:none;">
+  <div class="blocked-container" id="blocked-users"></div>
+</div>
+
+<!-- پنجره چت -->
+<div id="chat-popup">
+  <div id="chat-popup-header">
+    <span id="chat-user-name">چت کاربر</span>
+    <span onclick="closeChat()" style="cursor:pointer;">✖</span>
+  </div>
+  <div id="chat-messages"></div>
+  <div id="chat-input">
+    <input type="text" placeholder="پیام خود را وارد کنید..."/>
+    <button onclick="sendAdminMessage()">ارسال</button>
+  </div>
+</div>
+
+<script>
+const SERVER_URL = "http://localhost:3000";
+const sections = ["فروش","پشتیبانی فنی","مالی","سایر"];
+const sectionsContainer = document.getElementById("sections");
+const usersPage = document.getElementById("users-page");
+const usersContainer = document.getElementById("users");
+const blockedContainer = document.getElementById("blocked-users");
+const blockedTab = document.getElementById("blocked-tab");
+const sectionsTab = document.getElementById("sections-tab");
+
+let currentChatClientId = null;
+let currentChatId = null;
+
+// ================== Socket.IO ==================
+const socket = io(SERVER_URL);
+socket.on("new-message", msg => {
+  if(msg.clientId === currentChatClientId && msg.chatId === currentChatId){
+    appendMessage(msg);
+  }
+  loadSections();
+  loadBlockedClients();
+});
+
+function appendMessage(msg){
+  const chatBox = document.getElementById("chat-messages");
+  const div = document.createElement("div");
+  div.className = `chat-message ${msg.from}`;
+  div.textContent = `[${msg.ip||""}] ${msg.text}`;
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// ================== تب‌ها ==================
+function switchTab(tab){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector(`.tab[data-tab="${tab}"]`).classList.add('active');
+  if(tab==='sections'){ sectionsTab.style.display='block'; blockedTab.style.display='none'; loadSections(); }
+  else { sectionsTab.style.display='none'; blockedTab.style.display='block'; loadBlockedClients(); }
+}
+
+// ================== بارگذاری بخش‌ها ==================
+async function loadSections(){
+  const res = await fetch(`${SERVER_URL}/admin/clients`);
+  const clients = await res.json();
+  sectionsContainer.innerHTML = "";
+  sections.forEach(section => {
+    const card = document.createElement("div");
+    card.className = "section-card";
+    card.dataset.section = section;
+    card.innerHTML = `<h3>${section}</h3><div class="unread-count">0</div>`;
+    card.onclick = () => loadUsersSection(section, clients);
+    sectionsContainer.appendChild(card);
+  });
+  updateUnreadCounts();
+}
+
+// ================== شمارش پیام‌های خوانده نشده ==================
+async function updateUnreadCounts(){
+  const cards = document.querySelectorAll(".section-card");
+  const res = await fetch(`${SERVER_URL}/admin/clients`);
+  const clients = await res.json();
+  for(const card of cards){
+    const section = card.dataset.section;
+    let count = 0;
+    for(const c of clients){
+      for(const chatId of c.chats){
+        const chatRes = await fetch(`${SERVER_URL}/admin/chat/${c.clientId}/${chatId}`);
+        const chat = await chatRes.json();
+        if(chat.messages.length>0 && chat.messages[0].section === section){
+          count += chat.messages.filter(m=>m.from==="client" && !m.readByAdmin).length;
+        }
+      }
+    }
+    card.querySelector(".unread-count").textContent = count;
+  }
+}
+
+// ================== کاربران بخش ==================
+async function loadUsersSection(section, clients){
+  sectionsContainer.style.display = "none";
+  usersPage.style.display = "block";
+  usersContainer.innerHTML = "";
+  for(const c of clients){
+    for(const chatId of c.chats){
+      const chatRes = await fetch(`${SERVER_URL}/admin/chat/${c.clientId}/${chatId}`);
+      const chat = await chatRes.json();
+      if(chat.messages.length===0 || chat.messages[0].section !== section) continue;
+      const unread = chat.messages.filter(m=>m.from==="client" && !m.readByAdmin).length;
+      const card = document.createElement("div");
+      card.className = "user-card";
+      card.innerHTML = `<h3>کاربر ${c.clientId}</h3>
+        ${unread>0?`<div class="unread-count">${unread} پیام خوانده نشده</div>`:""}
+        <div class="actions">
+          <button class="reply-btn">چت</button>
+          <button class="delete-btn">حذف</button>
+          <button class="block-btn">مسدودسازی</button>
+        </div>`;
+      usersContainer.appendChild(card);
+      card.querySelector(".reply-btn").onclick = () => openChat(c.clientId, chatId);
+      card.querySelector(".delete-btn").onclick = async () => {
+        if(confirm("آیا مطمئن هستید؟")) {
+          await fetch(`${SERVER_URL}/admin/client/${c.clientId}`, { method:"DELETE" });
+          loadSections();
+        }
+      };
+      card.querySelector(".block-btn").onclick = async () => {
+        await fetch(`${SERVER_URL}/admin/block-client`, { method:"POST", headers:{"Content-Type":"application/json"},
+         body:JSON.stringify({clientId:c.clientId}) });
+        loadSections();
+      };
+    }
+  }
+}
+
+// ================== کاربران مسدود ==================
+async function loadBlockedClients(){
+  blockedContainer.innerHTML = "";
+  const res = await fetch(`${SERVER_URL}/admin/blocked-clients`);
+  const blockedClients = await res.json();
+  blockedClients.forEach(c=>{
+    const card = document.createElement("div");
+    card.className = "blocked-card";
+    card.innerHTML = `<h3>کاربر ${c.clientId}</h3>
+      <div>مسدود شده در: ${new Date(c.blockedAt).toLocaleString()}</div>
+      <div class="actions">
+        <button class="unblock-btn">آزادسازی</button>
+      </div>`;
+    blockedContainer.appendChild(card);
+    card.querySelector(".unblock-btn").onclick = async ()=>{
+      await fetch(`${SERVER_URL}/admin/unblock-client`, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({clientId:c.clientId}) });
+      loadBlockedClients();
+    };
+  });
+}
+
+// ================== چت آنلاین ==================
+function openChat(clientId, chatId){
+  currentChatClientId = clientId;
+  currentChatId = chatId;
+  document.getElementById("chat-user-name").textContent = `چت کاربر ${clientId}`;
+  document.getElementById("chat-messages").innerHTML = "";
+  document.getElementById("chat-popup").style.display = "flex";
+  socket.emit("join", { clientId, chatId });
+  fetch(`${SERVER_URL}/get-messages?clientId=${clientId}&chatId=${chatId}`).then(r=>r.json()).then(data=>{
+    data.messages.forEach(appendMessage);
+    fetch(`${SERVER_URL}/admin/read-chat`, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({clientId, chatId})}).then(()=>updateUnreadCounts());
+  });
+}
+
+function closeChat(){
+  document.getElementById("chat-popup").style.display = "none";
+  currentChatClientId = null;
+  currentChatId = null;
+}
+
+function sendAdminMessage(){
+  const input = document.querySelector("#chat-input input");
+  const text = input.value.trim();
+  if(!text || !currentChatClientId || !currentChatId) return;
+  fetch(`${SERVER_URL}/admin/send-reply`, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({clientId:currentChatClientId, chatId:currentChatId, text}) }).then(()=>input.value="");
+}
+
+function showSections(){
+  usersPage.style.display = "none";
+  sectionsContainer.style.display = "flex";
+}
+
+// ================== شروع ==================
+loadSections();
+</script>
+</body>
+</html>
