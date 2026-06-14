@@ -1,158 +1,1849 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>اسلایدر دو تایی</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f5f5f5;
-    }
 
-    .section {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 20px;
-      padding: 50px;
-      background-color: #fff;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    /* ستون اسلایدر */
-    .slider-container {
-      width: 60%;
-      max-width: 600px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
+<title>ستاد نماز جمعه مشهد</title>
 
-    .slides {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
+<link rel="stylesheet" href="cs/style.css">
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
 
-    .slide {
-      min-width: 50%;
-      box-sizing: border-box;
-    }
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-    .slide img {
-      width: 100%;
-      display: block;
-      border-radius: 10px;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-    /* دکمه های قبلی/بعدی */
-    .prev, .next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(0,0,0,0.5);
-      color: #fff;
-      border: none;
-      padding: 10px 15px;
-      cursor: pointer;
-      border-radius: 5px;
-      font-size: 18px;
-    }
+<style>
+/*ریست و متغیرها*/
 
-    .prev { left: 10px; }
-    .next { right: 10px; }
+button {
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 15px;
+}
+:root{
 
-    /* ستون محتوا */
-    .content {
-      width: 35%;
-      max-width: 350px;
+    --primary:#022447;
+    --secondary:#d4af37;
+    --dark:#00172d;
+    --light:#f7f9fc;
+    --white:#ffffff;
+    
+    --radius:18px;
+    
+    --shadow:
+    0 10px 30px rgba(0,0,0,.08);
+    
     }
+    
+    *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    }
+    
+    html{
+    scroll-behavior:smooth;
+    }
+    
+    body{
+    
+    font-family:tahoma;
+    
+    background:var(--light);
+    
+    direction:rtl;
+    
+    overflow-x:hidden;
+    
+    color:#333;
+    }
+    
+    a{
+    text-decoration:none;
+    }
+    
+    img{
+    max-width:100%;
+    display:block;
+    }
+    
+    .container{
+    
+    width:90%;
+    
+    max-width:1400px;
+    
+    margin:auto;
+    }
+    
+    section{
+    
+    padding:90px 0;
+    }
+    /*نوار بالا*/
+    .top-bar{
 
-    .content h2 {
-      margin-top: 0;
-      color: #333;
-    }
+        background:var(--dark);
+        
+        color:white;
+        
+        padding:12px 0;
+        
+        font-size:14px;
+        }
+        
+        .prayer-times{
+        
+        display:flex;
+        
+        justify-content:center;
+        
+        gap:40px;
+        
+        flex-wrap:wrap;
+        }
+        /*هدر*/
+        .header{
 
-    .content p {
-      color: #666;
-      line-height: 1.6;
-    }
+            background:var(--primary);
+            
+            position:sticky;
+            
+            top:0;
+            
+            z-index:999;
+            
+            box-shadow:0 5px 20px rgba(0,0,0,.1);
+            }
+            
+            .header .container{
+            
+            display:flex;
+            
+            justify-content:space-between;
+            
+            align-items:center;
+            
+            height:85px;
+            }
+            
+            .logo{
+            
+            display:flex;
+            
+            align-items:center;
+            
+            gap:15px;
+            
+            color:white;
+            }
+            
+            .logo img{
+            
+            width:60px;
+            }
+            
+            .menu ul{
+            
+            display:flex;
+            
+            list-style:none;
+            
+            gap:30px;
+            }
+            
+            .menu a{
+            
+            color:white;
+            
+            font-weight:bold;
+            
+            transition:.3s;
+            }
+            
+            .menu a:hover{
+            
+            color:var(--secondary);
+            }
+            /*منوی همبرگری*/
+            .hamburger{
 
-    /* ریسپانسیو */
-    @media (max-width: 900px) {
-      .section {
-        flex-direction: column;
-        align-items: center;
-      }
-      .slider-container, .content {
-        width: 90%;
-      }
+                display:none;
+                
+                width:35px;
+                
+                cursor:pointer;
+                }
+                
+                .hamburger span{
+                
+                display:block;
+                
+                height:4px;
+                
+                background:white;
+                
+                margin:6px 0;
+                
+                border-radius:10px;
+                
+                transition:.3s;
+                }
+                
+                .hamburger.active span:nth-child(1){
+                
+                transform:
+                rotate(45deg)
+                translate(7px,7px);
+                }
+                
+                .hamburger.active span:nth-child(2){
+                
+                opacity:0;
+                }
+                
+                .hamburger.active span:nth-child(3){
+                
+                transform:
+                rotate(-45deg)
+                translate(7px,-7px);
+                }
+                /*هیرو*/
+                .hero{
+                    background-image: url(../assets/images/پشت\ زمینه\ هدر.png);
+                    padding:0;
+                    
+                    height:700px;
+
+                    background-repeat: no-repeat; /* عدم تکرار */
+                    background-size: cover;       /* پوشش کامل صفحه */
+                    background-position: center;  /* قرارگیری در مرکز */
+                    }
+                    
+                    .heroSwiper{
+                    
+                    height:100%;
+                    }
+                    
+                    .swiper-slide{
+                    
+                    display:flex;
+                    
+                    align-items:center;
+                    
+                    justify-content:center;
+                    
+                    text-align:center;
+                    
+                    position:relative;
+                    }
+                    
+                    .swiper-slide::before{
+                    
+                    content:"";
+                    
+                    position:absolute;
+                    
+                    inset:0;
+                    
+                    /* background:rgba(0,0,0,.45); */
+                    
+                    z-index:1;
+                    }
+                    
+                    .hero-content{
+                    margin: auto;
+                    position:relative;
+                    
+                    z-index:2;
+                    margin-top: 11%;
+                    color:white;
+                    
+                    max-width:900px;
+                    }
+                    
+                    .hero-content h1{
+                    
+                    font-size:80px;
+                    
+                    margin-bottom:20px;
+                    }
+                    
+                    .hero-content h2{
+                    color: #f2ca8a;
+                    font-size:38px;
+                    
+                    margin-bottom:20px;
+                    }
+                    
+                    .hero-content p{
+                    
+                    font-size:20px;
+                    
+                    line-height:2;
+                    }
+                    /*تصاویر اسلایدر*/
+                    .slide1{
+
+                        background:url("./assets/images/پشت\ زمینه\ هدر.png");
+                        
+                        background-size:cover;
+                        background-position:center;
+                        }
+                        
+                        .slide2{
+                        
+                        background:url("../assets/images/hero2.jpg");
+                        
+                        background-size:cover;
+                        background-position:center;
+                        }
+                        
+                        .slide3{
+                        
+                        background:url("../assets/images/hero3.jpg");
+                        
+                        background-size:cover;
+                        background-position:center;
+                        }
+/*دکمه‌ها*/
+.btn{
+
+    display:inline-block;
+    
+    margin-top:25px;
+    
+    padding:15px 35px;
+    
+    background:var(--secondary);
+    
+    color:var(--primary);
+    
+    font-weight:bold;
+    
+    border-radius:12px;
+    
+    transition:.3s;
     }
-  </style>
+    
+    .btn:hover{
+    
+    transform:translateY(-5px);
+    
+    box-shadow:
+    0 10px 25px rgba(212,175,55,.4);
+    }                        
+/*عنوان سکشن‌ها*/
+.section-title{
+
+    text-align:center;
+    
+    margin-bottom:50px;
+    }
+    
+    .section-title h2{
+    
+    font-size:40px;
+    
+    color:var(--primary);
+    
+    position:relative;
+    }
+    
+    .section-title h2::after{
+    
+    content:"";
+    
+    display:block;
+    
+    width:80px;
+    
+    height:4px;
+    
+    background:var(--secondary);
+    
+    margin:15px auto;
+    
+    border-radius:20px;
+    }
+/*خدمات*/
+.services .container{
+
+    display:grid;
+    
+    grid-template-columns:
+    repeat(5,1fr);
+    
+    gap:25px;
+    
+    margin-top:-100px;
+    
+    position:relative;
+    
+    z-index:50;
+    }
+    
+    .service-card{
+    margin-top: -.5rem;
+    background:white;
+    
+    padding:35px;
+    
+    text-align:center;
+    
+    border-radius:20px;
+    
+    box-shadow:var(--shadow);
+    
+    transition:.3s;
+    }
+    
+    .service-card:hover{
+    
+    transform:
+    translateY(-10px);
+    }        
+/*اطلاعیه مهم*/
+.important-box{
+
+    background:#fff9e8;
+    
+    border-right:5px solid var(--secondary);
+    
+    padding:25px;
+    
+    border-radius:15px;
+    
+    display:flex;
+    
+    justify-content:space-between;
+    
+    align-items:center;
+    
+    gap:20px;
+    }
+/*پخش زنده*/
+.live-box{
+
+    overflow:hidden;
+    
+    border-radius:20px;
+    
+    box-shadow:var(--shadow);
+    }
+    
+    .live-box iframe{
+    
+    width:100%;
+    
+    height:600px;
+    
+    border:none;
+    }
+/*معرفی امام جمعه*/
+.imam-grid{
+
+    display:grid;
+    
+    grid-template-columns:
+    400px 1fr;
+    
+    gap:50px;
+    
+    align-items:center;
+    }
+    
+    .imam-grid img{
+    
+    border-radius:20px;
+    
+    box-shadow:var(--shadow);
+    }
+    
+    .imam-grid h2{
+    
+    font-size:40px;
+    
+    margin-bottom:20px;
+    
+    color:var(--primary);
+    }
+    
+    .imam-grid p{
+    
+    line-height:2.2;
+    }
+    /*اخبار*/
+    .news-grid{
+
+        display:grid;
+        
+        grid-template-columns:
+        repeat(3,1fr);
+        
+        gap:30px;
+        }
+        
+        .news-card{
+        
+        background:white;
+        
+        border-radius:20px;
+        
+        overflow:hidden;
+        
+        box-shadow:var(--shadow);
+        }
+        
+        .news-card img{
+        
+        height:260px;
+        
+        width:100%;
+        
+        object-fit:cover;
+        }
+        
+        .news-card h3{
+        
+        padding:20px;
+        }
+        
+        .news-card p{
+        
+        padding:0 20px 20px;
+        }
+/*گالری*/
+.gallery-grid{
+
+    display:grid;
+    
+    grid-template-columns:
+    repeat(3,1fr);
+    
+    gap:20px;
+    }
+    
+    .gallery-grid img{
+    
+    height:260px;
+    width: 100%;
+    object-fit:cover;
+    
+    border-radius:15px;
+    
+    transition:.4s;
+    }
+    
+    .gallery-grid img:hover{
+    
+    transform:scale(1.05);
+    }        
+/*آرشیو خطبه‌ها*/    
+.khotbeh{
+
+    background:white;
+    }
+    
+    #searchKhotbeh{
+    
+    width:100%;
+    
+    padding:15px 20px;
+    
+    border:1px solid #ddd;
+    
+    border-radius:12px;
+    
+    margin-bottom:30px;
+    
+    font-size:16px;
+    }
+    
+    .khotbeh-list{
+    
+    display:flex;
+    
+    flex-direction:column;
+    
+    gap:20px;
+    }
+    
+    .khotbeh-item{
+    
+    background:#fff;
+    
+    padding:25px;
+    
+    border-radius:15px;
+    
+    box-shadow:var(--shadow);
+    
+    display:flex;
+    
+    justify-content:space-between;
+    
+    align-items:center;
+    }
+    
+    .khotbeh-item a{
+    
+    background:var(--primary);
+    
+    color:white;
+    
+    padding:10px 20px;
+    
+    border-radius:10px;
+    }
+/*دانلود فایل‌ها*/
+.downloads{
+
+    background:#f9fbfd;
+    }
+    
+    .downloads-grid{
+    
+    display:grid;
+    
+    grid-template-columns:
+    repeat(2,1fr);
+    
+    gap:25px;
+    }
+    
+    .download-card{
+    
+    background:white;
+    
+    padding:30px;
+    
+    border-radius:20px;
+    
+    box-shadow:var(--shadow);
+    
+    display:flex;
+    
+    justify-content:space-between;
+    
+    align-items:center;
+    }
+    
+    .download-card a{
+    
+    background:var(--secondary);
+    
+    color:var(--primary);
+    
+    padding:12px 25px;
+    
+    border-radius:10px;
+    
+    font-weight:bold;
+    }
+/*مناسبت‌ها*/
+.events{
+
+    background:white;
+    }
+    
+    .event-item{
+    
+    background:#fff;
+    
+    padding:20px;
+    
+    border-radius:15px;
+    
+    margin-bottom:15px;
+    
+    box-shadow:var(--shadow);
+    
+    font-size:18px;
+    }
+/*آمار*/
+.stats{
+
+background:var(--primary);
+
+color:white;
+}
+
+.stats-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:30px;
+}
+
+.stat{
+
+text-align:center;
+}
+
+.stat h2{
+
+font-size:55px;
+
+color:var(--secondary);
+
+margin-bottom:10px;
+}
+
+.stat p{
+
+font-size:18px;
+}            
+/*فرم تماس*/
+.contact{
+
+    background:white;
+    }
+    
+    .contact form{
+    
+    max-width:800px;
+    
+    margin:auto;
+    
+    display:flex;
+    
+    flex-direction:column;
+    
+    gap:20px;
+    }
+    
+    .contact input,
+    .contact textarea{
+    
+    padding:15px;
+    
+    border:1px solid #ddd;
+    
+    border-radius:12px;
+    
+    font-size:16px;
+    }
+    
+    .contact textarea{
+    
+    height:180px;
+    
+    resize:none;
+    }
+    
+    .contact button{
+    
+    background:var(--primary);
+    
+    color:white;
+    
+    padding:15px;
+    
+    border:none;
+    
+    border-radius:12px;
+    
+    cursor:pointer;
+    
+    font-size:18px;
+    }
+/*فوتر*/
+.footer{
+
+    background:var(--dark);
+    
+    color:white;
+    
+    padding:70px 0 30px;
+    }
+    
+    .footer .container{
+    
+    text-align:center;
+    }
+    
+    .footer h3{
+    
+    margin-bottom:15px;
+    }
+    
+    .footer p{
+    
+    opacity:.8;
+    }
+/*بک‌دراپ*/
+.backdrop{
+
+    position:fixed;
+    
+    top:0;
+    left:0;
+    
+    width:100%;
+    height:100%;
+    
+    background:rgba(0,0,0,.6);
+    
+    opacity:0;
+    
+    visibility:hidden;
+    
+    transition:.3s;
+    
+    z-index:998;
+    }
+    
+    .backdrop.active{
+    
+    opacity:1;
+    
+    visibility:visible;
+    }
+/*ریسپانسیو تبلت*/
+@media(max-width:992px){
+
+    .hero-content h1{
+    
+    font-size:55px;
+    }
+    
+    .hero-content h2{
+    
+    font-size:28px;
+    }
+    
+    .services .container{
+    
+    grid-template-columns:
+    repeat(2,1fr);
+    }
+    
+    .news-grid{
+    
+    grid-template-columns:
+    repeat(2,1fr);
+    }
+    
+    .gallery-grid{
+    
+    grid-template-columns:
+    repeat(2,1fr);
+    }
+    
+    .imam-grid{
+    
+    grid-template-columns:1fr;
+    }
+    
+    .stats-grid{
+    
+    grid-template-columns:
+    repeat(2,1fr);
+    }
+    
+    .downloads-grid{
+    
+    grid-template-columns:1fr;
+    }
+    
+    }
+/*ریسپانسیو موبایل*/
+@media(max-width:768px){
+
+    .header .container{
+    
+    height:auto;
+    
+    padding:15px 0;
+    }
+    
+    .logo h2{
+    
+    font-size:18px;
+    }
+    
+    .hamburger{
+    
+    display:block;
+    
+    z-index:1000;
+    }
+    
+    .menu{
+    
+    position:fixed;
+    
+    top:0;
+    
+    right:-100%;
+    
+    width:280px;
+    
+    height:100vh;
+    
+    background:var(--primary);
+    
+    padding-top:100px;
+    
+    transition:.4s;
+    
+    z-index:999;
+    }
+    
+    .menu.active{
+    
+    right:0;
+    }
+    
+    .menu ul{
+    
+    flex-direction:column;
+    
+    align-items:center;
+    
+    gap:25px;
+    }
+    
+    .hero{
+    
+    height:550px;
+    }
+    
+    .hero-content h1{
+    
+    font-size:40px;
+    }
+    
+    .hero-content h2{
+    
+    font-size:22px;
+    }
+    
+    .hero-content p{
+    
+    font-size:15px;
+    }
+    
+    .services .container{
+    
+    grid-template-columns:1fr;
+    }
+    
+    .news-grid{
+    
+    grid-template-columns:1fr;
+    }
+    
+    .gallery-grid{
+    
+    grid-template-columns:1fr;
+    }
+    
+    .stats-grid{
+    
+    grid-template-columns:1fr;
+    }
+    
+    .khotbeh-item{
+    
+    flex-direction:column;
+    
+    gap:15px;
+    
+    text-align:center;
+    }
+    
+    .download-card{
+    
+    flex-direction:column;
+    
+    gap:15px;
+    }
+    
+    .important-box{
+    
+    flex-direction:column;
+    
+    text-align:center;
+    }
+    
+    .live-box iframe{
+    
+    height:280px;
+    }
+    
+    }         
+    
+    
+    /*خطبه و دانلود*/
+    .sermon-modal{
+
+        position:fixed;
+        
+        top:0;
+        left:0;
+        
+        width:100%;
+        height:100%;
+        
+        background:rgba(0,0,0,.7);
+        
+        display:none;
+        
+        justify-content:center;
+        
+        align-items:center;
+        
+        z-index:9999;
+        }
+        
+        .sermon-modal.active{
+        
+        display:flex;
+        }
+        
+        .modal-content{
+        
+        background:white;
+        
+        width:95%;
+        
+        max-width:1200px;
+        
+        max-height:90vh;
+        
+        overflow-y:auto;
+        
+        padding:30px;
+        
+        border-radius:20px;
+        
+        position:relative;
+        }
+        
+        .close-modal{
+        
+        position:absolute;
+        
+        left:20px;
+        
+        top:15px;
+        
+        font-size:40px;
+        
+        cursor:pointer;
+        }
+        
+        .sections-grid{
+        
+        display:grid;
+        
+        grid-template-columns:
+        repeat(auto-fit,minmax(300px,1fr));
+        
+        gap:20px;
+        
+        margin-top:30px;
+        }
+        
+        .section-box{
+        
+        background:#f8fafc;
+        
+        padding:20px;
+        
+        border-radius:15px;
+        
+        box-shadow:0 5px 15px rgba(0,0,0,.08);
+        }
+        
+        .section-box h3{
+        
+        margin-bottom:20px;
+        
+        color:#022447;
+        }
+        
+        .action-links{
+        
+        display:flex;
+        
+        flex-wrap:wrap;
+        
+        gap:10px;
+        }
+        
+        .action-links a{
+        
+        background:#022447;
+        
+        color:white;
+        
+        padding:10px 15px;
+        
+        border-radius:8px;
+        
+        font-size:14px;
+        }
+        
+        .action-links a:hover{
+        
+        background:#d4af37;
+        
+        color:#022447;
+        }
+</style>
+
 </head>
+
 <body>
 
-  <div class="section">
-    <!-- اسلایدر -->
-    <div class="slider-container">
-      <div class="slides">
-        <div class="slide">
-          <img src="./assets/images/پشت زمینه هدر.png" alt="Slide 1">
-        </div>
-        <div class="slide">
-          <img src="./assets/images/عکس حرم2.jpg" alt="Slide 2">
-        </div>
-        <div class="slide">
-            <img src="./assets/images/عکس حرم2.jpg" alt="Slide 2">
-          </div>
-          <div class="slide">
-            <img src="./assets/images/عکس حرم2.jpg" alt="Slide 2">
-          </div>
-      </div>
-      <button class="prev">&#10094;</button>
-      <button class="next">&#10095;</button>
+<!-- نوار بالا -->
+<section class="top-bar">
+<div class="container">
+<div class="prayer-times">
+<span>اذان صبح : 04:15</span>
+<span>اذان ظهر : 12:10</span>
+<span>اذان مغرب : 20:05</span>
+</div>
+</div>
+</section>
+
+<!-- هدر -->
+<header class="header">
+<div class="container">
+<div class="logo">
+<img src="assets/images/logo.png" alt="">
+<h2>ستاد نماز جمعه مشهد</h2>
+</div>
+
+<div class="hamburger" id="hamburger">
+<span></span><span></span><span></span>
+</div>
+
+<nav class="menu" id="menu">
+<ul>
+<li><a href="#">خانه</a></li>
+<li><a href="#">اخبار</a></li>
+<li><a href="#">خطبه‌ها</a></li>
+<li><a href="#">گالری</a></li>
+<li><a href="#">پخش زنده</a></li>
+<li><a href="#">امام جمعه</a></li>
+<li><a href="#">تماس با ما</a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+<!-- هیرو -->
+<section class="hero">
+<div class="swiper heroSwiper">
+<div class="swiper-wrapper">
+
+<div class="swiper-slide slide1">
+<div class="hero-content">
+<h1>نماز جمعه</h1>
+<h2>قرارگاه ایمان، بصیرت و اخلاق</h2>
+<p>ستاد نماز جمعه مشهد مقدس</p>
+<p>معنویت بخش و تاثیر گذار در جهت تحقق اهداف اسلام و انقلاب</p>
+<a href="#" class="btn">اطلاعات بیشتر</a>
+</div>
+</div>
+
+<div class="swiper-slide slide2">
+<div class="hero-content">
+<h1>آرشیو خطبه‌ها</h1>
+<h2>دسترسی به فایل‌های صوتی و متنی</h2>
+<a href="#" class="btn">مشاهده آرشیو</a>
+</div>
+</div>
+
+<div class="swiper-slide slide3">
+<div class="hero-content">
+<h1>پخش زنده</h1>
+<h2>تماشای زنده نماز جمعه</h2>
+<a href="#" class="btn">ورود به پخش</a>
+</div>
+</div>
+
+</div>
+<div class="swiper-pagination"></div>
+</div>
+</section>
+<section class="services">
+
+    <div class="container">
+    
+    <div class="service-card">
+    
+    <h3>خطبه‌ها 🎙</h3>
     </div>
-
-    <!-- بخش محتوا -->
-    <div class="content">
-      <h2>عنوان بخش محتوا</h2>
-      <p>
-        اینجا می‌توانید محتوای دلخواه خود را قرار دهید. این متن به عنوان نمونه قرار داده شده است تا نشان دهد بخش محتوا کنار اسلایدر چگونه نمایش داده می‌شود.
-      </p>
+    
+    <div class="service-card">
+        
+        <h3>اخبار 📰</h3>
     </div>
-  </div>
+    
+    <div class="service-card">
+    
+    <h3>گالری 📷</h3>
+    </div>
+    
+    <div class="service-card">
+    
+    <h3>پخش زنده 📡</h3>
+    </div>
+    
+    <div class="service-card">
+    
+    <h3>آرشیو 📚</h3>
+    </div>
+    
+    </div>
+    
+    </section>
+    
+    <!-- اطلاعیه مهم -->
+    <section class="important-news">
+        
+        <div class="container">
+            
+            <div class="important-box">
+                
+                <strong>
+                    اطلاعیه مهم
+                </strong>
+                
+                <p>
+                    ثبت نام خادمیاران نماز جمعه آغاز شد.
+                </p>
+                
+                <a href="#">
+                    مشاهده
+                </a>
+                
+            </div>
+            
+        </div>
+        
+    </section>
+    <!-- اخبار -->
+    <section class="news">
+        
+        <div class="container">
+            
+            <div class="section-title">
+                
+                <h2>
+                    آخرین اخبار
+                </h2>
+                
+            </div>
+            
+            <div class="news-grid">
+                
+                <article class="news-card">
+                    
+                    <img src="assets/images/تجمع امام های جمعه.jpg">
+                    
+                    <h3>
+                        مراسم  امام های جمعه خراسان
+                    </h3>
+                    
+                    <p>
+                        در این جلسه درباره موضوع...
+                    </p>
+                    
+                </article>
+                
+                <article class="news-card">
+                    
+                    <img src="assets/images/عکس حرم تجمع شهادت.jpg">
+                    
+                    <h3>
+                        مراسم شهادت امام...
+                    </h3>
+                    
+                    <p>
+                        در این مراسم آیین...
+                    </p>
+                    
+                </article>
+                
+                <article class="news-card">
+                    
+                    <img src="./assets/images/alame.JPG">
+                    
+                    <h3>
+                        صحبت های امام جمعه مشهد ...
+                    </h3>
+                    
+                    <p>
+                        امام جمعه مشهد در ادامه صحیت ها...
+                    </p>
+                    
+                </article>
+                
+            </div>
+            
+        </div>
+        
+    </section>
+    <!-- گالری -->
+    <section class="gallery">
+    
+    <div class="container">
+    
+    <div class="section-title">
+    
+    <h2>
+    گالری تصاویر
+    </h2>
+    
+    </div>
+    
+    <div class="gallery-grid">
+    
+    <img src="assets/images/alame-kh.JPG">
+    
+    <img src="assets/images/IMG_5802.JPG">
+    
+    <img src="assets/images/kotbeh1.jpg">
+    
+    <img src="assets/images/sokhan.JPG">
+    
+    <img src="assets/images/alame.JPG">
+    
+    <img src="assets/images/پشت زمینه هدر.png">
+    
+    </div>
+    
+    </div>
+    
+    </section>
+    
+    <!-- پخش زنده -->
+    <section class="live-stream">
+    
+    <div class="container">
+    
+    <div class="section-title">
+    
+    <h2>
+    پخش زنده نماز جمعه
+    </h2>
+    
+    </div>
+    
+    <div class="live-box">
+    
+    <iframe
+    src=""
+    allowfullscreen>
+    </iframe>
+    
+    </div>
+    
+    </div>
+    
+    </section>
+    
+    <!-- امام جمعه -->
+    <section class="imam-section">
+    
+    <div class="container">
+    
+    <div class="imam-grid">
+    
+    <img
+    src="assets/images/alame.JPG"
+    alt="">
+    
+    <div>
+    
+    <h2>
+    معرفی امام جمعه مشهد
+    </h2>
+    
+    <p>
+    
+    متن معرفی امام جمعه
+    و سوابق علمی و فرهنگی
+    
+    </p>
+    
+    <a href="#" class="btn">
+    مطالعه بیشتر
+    </a>
+    
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    </section>
+<!-- آرشیو خطبه‌ها -->
+<section class="khotbeh">
+<div class="container">
 
-  <script>
-    const slides = document.querySelector('.slides');
-    const slide = document.querySelectorAll('.slide');
-    const prev = document.querySelector('.prev');
-    const next = document.querySelector('.next');
-    let index = 0;
+<div class="section-title">
+<h2>آرشیو نماز جمعه</h2>
+</div>
 
-    function showSlide(i) {
-      if (i >= slide.length) index = 0;
-      else if (i < 0) index = slide.length - 1;
-      slides.style.transform = `translateX(-${index * 100}%)`;
+<input type="text" id="searchKhotbeh" placeholder="جستجوی نماز جمعه">
+
+<div class="khotbeh-list" id="khotbehList"></div>
+
+</div>
+</section>
+
+<!-- Modal -->
+<div class="sermon-modal" id="sermonModal">
+<div class="modal-content">
+
+<span class="close-modal" id="closeModal">&times;</span>
+
+<div id="modalBody"></div>
+
+</div>
+</div>
+
+<!-- فوتر -->
+<footer class="footer">
+<div class="container">
+<h3>ستاد نماز جمعه مشهد</h3>
+<p>کلیه حقوق محفوظ است</p>
+</div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="./js/main.js"></script>
+
+<!-- <script>
+
+    async function loadKhotbeh() {
+    
+        console.log("===== loadKhotbeh START =====");
+    
+        try {
+    
+            const list = document.getElementById('khotbehList');
+    
+            console.log("khotbehList:", list);
+    
+            if (!list) {
+                console.error("❌ عنصر khotbehList پیدا نشد");
+                return;
+            }
+    
+            const url = './khotbeh/khotbehindex.json';
+    
+            console.log("Fetching:", url);
+    
+            const res = await fetch(url);
+    
+            console.log("Response:", res);
+            console.log("Status:", res.status);
+    
+            if (!res.ok) {
+                throw new Error(`HTTP Error ${res.status}`);
+            }
+    
+            const data = await res.json();
+    
+            console.log("JSON Data:", data);
+    
+            if (!Array.isArray(data)) {
+                console.error("❌ JSON باید آرایه باشد");
+                return;
+            }
+    
+            list.innerHTML = data.map(item => `
+                <div class="khotbeh-item"
+                     onclick="openKhotbeh('${item.id}','${item.title}')">
+    
+                    <h3>${item.title}</h3>
+    
+                    <p>${item.desc || ''}</p>
+    
+                    <a href="javascript:void(0)">
+                        مشاهده
+                    </a>
+    
+                </div>
+            `).join('');
+    
+            console.log("✅ خطبه‌ها نمایش داده شدند");
+    
+        } catch (err) {
+    
+            console.error("❌ ERROR IN loadKhotbeh");
+            console.error(err);
+    
+        }
+    }
+    
+    
+    function openKhotbeh(id, title) {
+    
+        console.log("Opening:", id);
+    
+        const modalBody = document.getElementById('modalBody');
+    
+        if (!modalBody) {
+            console.error("❌ modalBody پیدا نشد");
+            return;
+        }
+    
+        const base = `./khotbeh/${id}/`;
+    
+        modalBody.innerHTML = `
+            <h2>${title}</h2>
+    
+            <h3>قرآن</h3>
+            <a href="${base}quran.mp4" target="_blank">🎥 ویدیو</a>
+            <a href="${base}quran.mp3" target="_blank">🎧 صوت</a>
+    
+            <h3>پیش خطبه</h3>
+            <a href="${base}pre_video.mp4" target="_blank">🎥 ویدیو</a>
+            <a href="${base}pre_audio.mp3" target="_blank">🎧 صوت</a>
+    
+            <h3>خطبه اول</h3>
+            <a href="${base}khutbah1_video.mp4" target="_blank">🎥 ویدیو</a>
+            <a href="${base}khutbah1_audio.mp3" target="_blank">🎧 صوت</a>
+    
+            <h3>خطبه دوم</h3>
+            <a href="${base}khutbah2_video.mp4" target="_blank">🎥 ویدیو</a>
+            <a href="${base}khutbah2_audio.mp3" target="_blank">🎧 صوت</a>
+        `;
+    
+        const modal = document.getElementById('sermonModal');
+    
+        if (!modal) {
+            console.error("❌ sermonModal پیدا نشد");
+            return;
+        }
+    
+        modal.style.display = 'flex';
+    }
+    
+    
+    document.addEventListener('DOMContentLoaded', () => {
+    
+        console.log("✅ DOMContentLoaded");
+    
+        loadKhotbeh();
+    
+        const closeBtn = document.getElementById('closeModal');
+    
+        console.log("closeModal:", closeBtn);
+    
+        if (closeBtn) {
+    
+            closeBtn.onclick = function () {
+    
+                const modal = document.getElementById('sermonModal');
+    
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+    
+            };
+    
+        } else {
+    
+            console.error("❌ closeModal پیدا نشد");
+    
+        }
+    
+    });
+    
+    </script> -->
+
+    <script>
+
+        // =========================
+        // آرشیو خطبه‌ها
+        // =========================
+        
+        const khotbehData = [
+            {
+                id: "namaz1405-02-13",
+                title: "نماز جمعه ۲۸ اردیبهشت ۱۴۰۵",
+                desc: "سبک زندگی اسلامی"
+            }
+        ];
+        
+        // =========================
+        // نمایش لیست خطبه‌ها
+        // =========================
+        
+        function loadKhotbeh() {
+        
+            const list = document.getElementById("khotbehList");
+        
+            if (!list) {
+                console.error("khotbehList پیدا نشد");
+                return;
+            }
+        
+            list.innerHTML = khotbehData.map(item => `
+                <div class="khotbeh-item"
+                     onclick="openKhotbeh('${item.id}','${item.title}')">
+        
+                    <h3>${item.title}</h3>
+        
+                    <p>${item.desc}</p>
+        
+                    <a href="javascript:void(0)">
+                        مشاهده
+                    </a>
+        
+                </div>
+            `).join("");
+        }
+        
+        // =========================
+        // باز کردن مودال
+        // =========================
+        
+function openKhotbeh(id, title) {
+
+    const modalBody = document.getElementById("modalBody");
+
+    if (!modalBody) {
+        console.error("modalBody پیدا نشد");
+        return;
     }
 
-    prev.addEventListener('click', () => {
-      index--;
-      showSlide(index);
-    });
+    const base = `./khotbeh/${id}/`;
 
-    next.addEventListener('click', () => {
-      index++;
-      showSlide(index);
-    });
+    modalBody.innerHTML = `
+        <div style="text-align:center;margin-bottom:15px;">
+            <h2 style="margin:0;color:#222;">${title}</h2>
+        </div>
 
-    // اسلایدر خودکار هر 5 ثانیه
-    setInterval(() => {
-      index++;
-      showSlide(index);
-    }, 5000);
-  </script>
+        <hr>
+
+        <!-- 📖 قرآن -->
+        <h3>📖 تلاوت قرآن</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a style="padding:8px 12px;background:#2c7be5;color:#fff;border-radius:8px;text-decoration:none"
+               href="${base}quran.mp4" target="_blank">
+                ▶️ مشاهده ویدیو
+            </a>
+
+            <a style="padding:8px 12px;background:#28a745;color:#fff;border-radius:8px;text-decoration:none"
+               href="${base}quran.mp3" download>
+                ⬇️ دانلود صوت
+            </a>
+
+            <a style="padding:8px 12px;background:#6f42c1;color:#fff;border-radius:8px;text-decoration:none"
+               href="${base}quran.txt" download>
+                📄 دانلود متن
+            </a>
+        </div>
+
+        <hr>
+
+        <!-- 🎙 پیش خطبه -->
+        <h3>🎙 پیش خطبه</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a style="padding:8px 12px;background:#2c7be5;color:#fff;border-radius:8px;text-decoration:none"
+               href="${base}pre_video.mp4" target="_blank">
+                ▶️ مشاهده ویدیو
+            </a>
+
+            <a style="padding:8px 12px;background:#28a745;color:#fff;border-radius:8px;text-decoration:none"
+               href="${base}pre_audio.mp3" download>
+                ⬇️ دانلود صوت
+            </a>
+
+            <a style="padding:8px 12px;background:#6f42c1;color:#fff;border-radius:8px;text-decoration:none"
+               href="${base}pre.txt" download>
+                📄 دانلود متن
+            </a>
+        </div>
+
+        <hr>
+
+        <!-- 🕌 خطبه اول -->
+        <h3>🕌 خطبه اول</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a style="padding:8px 12px;background:#2c7be5;color:#fff;border-radius:8px;text-decoration:none"
+               href="${base}khutbah1_video.mp4" target="_blank">
+                ▶️ مشاهده ویدیو
+            </a>
+
+            <a style="padding:8px 12px;background:#28a745;color:#fff;border-radius:8px;text-decoration:none"
+               href="${base}khutbah1_audio.mp3" download>
+                ⬇️ دانلود صوت
+            </a>
+
+            <a style="padding:8px 12px;background:#6f42c1;color:#fff;border-radius:8px;text-decoration:none"
+               href="${base}khutbah1.txt" download>
+                📄 دانلود متن
+            </a>
+        </div>
+
+        <hr>
+
+        <!-- 🕌 خطبه دوم -->
+        <h3>🕌 خطبه دوم</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a style="padding:8px 12px;background:#2c7be5;color:#fff;border-radius:8px;text-decoration:none"
+               href="${base}khutbah2_video.mp4" target="_blank">
+                ▶️ مشاهده ویدیو
+            </a>
+
+            <a style="padding:8px 12px;background:#28a745;color:#fff;border-radius:8px;text-decoration:none"
+               href="${base}khutbah2_audio.mp3" download>
+                ⬇️ دانلود صوت
+            </a>
+
+            <a style="padding:8px 12px;background:#6f42c1;color:#fff;border-radius:8px;text-decoration:none"
+               href="${base}khutbah2.txt" download>
+                📄 دانلود متن
+            </a>
+        </div>
+    `;
+
+    document.getElementById("sermonModal").style.display = "flex";
+}
+        
+        // =========================
+        // بستن مودال
+        // =========================
+        
+        document.addEventListener("DOMContentLoaded", () => {
+        
+            loadKhotbeh();
+        
+            const closeBtn = document.getElementById("closeModal");
+        
+            if (closeBtn) {
+        
+                closeBtn.addEventListener("click", () => {
+        
+                    const modal = document.getElementById("sermonModal");
+        
+                    if (modal) {
+                        modal.style.display = "none";
+                    }
+        
+                });
+        
+            }
+        
+            const modal = document.getElementById("sermonModal");
+        
+            if (modal) {
+        
+                modal.addEventListener("click", (e) => {
+        
+                    if (e.target === modal) {
+                        modal.style.display = "none";
+                    }
+        
+                });
+        
+            }
+        
+        });
+        
+        // =========================
+        // جستجو
+        // =========================
+        
+        const searchInput = document.getElementById("searchKhotbeh");
+        
+        if (searchInput) {
+        
+            searchInput.addEventListener("keyup", () => {
+        
+                const value = searchInput.value.toLowerCase();
+        
+                document.querySelectorAll(".khotbeh-item").forEach(item => {
+        
+                    item.style.display =
+                        item.innerText.toLowerCase().includes(value)
+                            ? "block"
+                            : "none";
+        
+                });
+        
+            });
+        
+        }
+        // منوی همبرگری
+const hamburger = document.getElementById("hamburger");
+const menu = document.getElementById("menu");
+const backdrop = document.getElementById("backdrop");
+
+hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    menu.classList.toggle("active");
+    backdrop.classList.toggle("active");
+});
+
+backdrop.addEventListener("click", () => {
+    menu.classList.remove("active");
+    hamburger.classList.remove("active");
+    backdrop.classList.remove("active");
+});
+
+document.querySelectorAll(".menu a").forEach(link => {
+    link.addEventListener("click", () => {
+        menu.classList.remove("active");
+        hamburger.classList.remove("active");
+        backdrop.classList.remove("active");
+    });
+});
+
+// Swiper هدر
+new Swiper(".heroSwiper", {
+    loop: true,
+    speed: 1000,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+    },
+    breakpoints: {
+        0: { slidesPerView: 1 },
+        768: { slidesPerView: 1 },
+        1024: { slidesPerView: 1 }
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </script>
 
 </body>
 </html>

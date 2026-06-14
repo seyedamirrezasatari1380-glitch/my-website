@@ -1,0 +1,28 @@
+{
+  "title": "نماز جمعه ۲۸ اردیبهشت ۱۴۰۵",
+  "date": "1405-02-28",
+
+  "quran": {
+    "video": "quran.mp4",
+    "audio": "quran.mp3",
+    "text": "متن تلاوت قرآن..."
+  },
+
+  "preKhutbah": {
+    "video": "pre_video.mp4",
+    "audio": "pre_audio.mp3",
+    "text": "متن پیش خطبه..."
+  },
+
+  "khutbah1": {
+    "video": "khutbah1_video.mp4",
+    "audio": "khutbah1_audio.mp3",
+    "text": "متن خطبه اول..."
+  },
+
+  "khutbah2": {
+    "video": "khutbah2_video.mp4",
+    "audio": "khutbah2_audio.mp3",
+    "text": "متن خطبه دوم..."
+  }
+}
