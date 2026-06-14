@@ -42,6 +42,52 @@ new Swiper(".heroSwiper", {
     }
 });
 
+
+
+
+
+
+
+
+
+
+function openNews(img, text){
+
+    const modal = document.getElementById("newsModal");
+    const content = document.getElementById("newsContent");
+
+    content.innerHTML = `
+        <img src="${img}" style="
+            width:100%;
+            border-radius:15px;
+            margin-bottom:15px;
+            max-height:300px;
+            object-fit:cover;
+        ">
+
+        <div style="
+            font-size:16px;
+            line-height:2;
+            color:#333;
+        ">
+            ${text}
+        </div>
+    `;
+
+    modal.classList.add("active");
+}
+
+function closeNews(){
+    document.getElementById("newsModal").classList.remove("active");
+}
+
+// بستن با کلیک بیرون
+document.addEventListener("click", function(e){
+    const modal = document.getElementById("newsModal");
+    if(e.target === modal){
+        closeNews();
+    }
+});
 // جستجوی خطبه
 // const searchInput = document.getElementById("searchKhotbeh");
 
