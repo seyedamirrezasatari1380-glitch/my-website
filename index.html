@@ -85,20 +85,20 @@ body {
 
 <nav class="menu" id="menu">
 <ul>
-<li><a href="#">خانه</a></li>
-<li><a href="#">اخبار</a></li>
-<li><a href="#">خطبه‌ها</a></li>
-<li><a href="#">گالری</a></li>
-<li><a href="#">پخش زنده</a></li>
-<li><a href="#">امام جمعه</a></li>
-<li><a href="#">تماس با ما</a></li>
+<li><a href="#home">خانه</a></li>
+<li><a href="#akhbar">اخبار</a></li>
+<li><a href="#khotbeh">خطبه‌ها</a></li>
+<li><a href="#galri">گالری</a></li>
+<li><a href="#pakhsh">پخش زنده</a></li>
+<li><a href="#emame">امام جمعه</a></li>
+<li><a href="#bama">تماس با ما</a></li>
 </ul>
 </nav>
 </div>
 </header>
 
 <!-- هیرو -->
-<section class="hero">
+<section id="home" class="hero">
 <div class="swiper heroSwiper">
 <div class="swiper-wrapper">
 
@@ -136,30 +136,30 @@ body {
 
     <div class="container">
     
-    <div class="service-card">
+    <a href="#khotbeh" class="service-card">
     
     <h3>خطبه‌ها 🎙</h3>
-    </div>
+    </a>
     
-    <div class="service-card">
+    <a href="#akhbar" class="service-card">
         
         <h3>اخبار 📰</h3>
-    </div>
+    </a>
     
-    <div class="service-card">
+    <a href="#galri" class="service-card">
     
     <h3>گالری 📷</h3>
-    </div>
+    </a>
     
-    <div class="service-card">
+    <a href="#pakhsh" class="service-card">
     
     <h3>پخش زنده 📡</h3>
-    </div>
+    </a>
     
-    <div class="service-card">
+    <a href="#khotbeh" class="service-card">
     
     <h3>آرشیو 📚</h3>
-    </div>
+    </a>
     
     </div>
     
@@ -189,70 +189,69 @@ body {
         </div>
         
     </section>
-    <!-- اخبار -->
-    <section class="news">
-        
-        <div class="container">
-            
-            <div class="section-title">
-                
-                <h2>
-                    آخرین اخبار
-                </h2>
-                
-            </div>
-            
-            <div class="news-grid">
-                
-                <article class="news-card">
-                    
-                    <img src="assets/images/تجمع امام های جمعه.jpg">
-                    
-                    <h3>
-                        مراسم  امام های جمعه خراسان
-                    </h3>
-                    
-                    <p>
-                        در این جلسه درباره موضوع...
-                    </p>
-                    
-                </article>
-                
-                <article class="news-card">
-                    
-                    <img src="assets/images/عکس حرم تجمع شهادت.jpg">
-                    
-                    <h3>
-                        مراسم شهادت امام...
-                    </h3>
-                    
-                    <p>
-                        در این مراسم آیین...
-                    </p>
-                    
-                </article>
-                
-                <article class="news-card">
-                    
-                    <img src="./assets/images/alame.JPG">
-                    
-                    <h3>
-                        صحبت های امام جمعه مشهد ...
-                    </h3>
-                    
-                    <p>
-                        امام جمعه مشهد در ادامه صحیت ها...
-                    </p>
-                    
-                </article>
-                
-            </div>
-            
+<!-- اخبار -->
+<section id="akhbar" class="news">
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>آخرین اخبار</h2>
         </div>
-        
-    </section>
+
+        <div class="news-grid">
+
+            <!-- خبر 1 -->
+            <article class="news-card">
+
+                <img src="assets/images/تجمع امام های جمعه.jpg">
+
+                <h3>مراسم ائمه جمعه خراسان</h3>
+
+                <p>در این جلسه درباره موضوعات مهم فرهنگی و اجتماعی استان بحث شد...</p>
+
+                <button onclick="openNews('assets/images/تجمع امام های جمعه.jpg','در این مراسم ائمه جمعه خراسان گرد هم آمدند...')">
+                    مشاهده خبر
+                </button>
+
+            </article>
+
+            <!-- خبر 2 -->
+            <article class="news-card">
+
+                <img src="assets/images/عکس حرم تجمع شهادت.jpg">
+
+                <h3>مراسم شهادت امام رضا (ع)</h3>
+
+                <p>در این مراسم آیین سوگواری باشکوهی برگزار شد...</p>
+
+                <button onclick="openNews('assets/images/تجمع امام های جمعه.jpg','در این مراسم ائمه جمعه خراسان گرد هم آمدند...')">
+                    مشاهده خبر
+                </button>
+
+            </article>
+
+            <!-- خبر 3 -->
+            <article class="news-card">
+
+                <img src="./assets/images/alame.JPG">
+
+                <h3>سخنرانی امام جمعه مشهد</h3>
+
+                <p>امام جمعه مشهد در ادامه سخنرانی‌های خود...</p>
+
+                <button onclick="openNews('assets/images/تجمع امام های جمعه.jpg','در این مراسم ائمه جمعه خراسان گرد هم آمدند...')">
+                    مشاهده خبر
+                </button>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
     <!-- گالری -->
-    <section class="gallery">
+    <section id="galri" class="gallery">
     
     <div class="container">
     
@@ -285,7 +284,7 @@ body {
     </section>
     
     <!-- پخش زنده -->
-    <section class="live-stream">
+    <section id="pakhsh" class="live-stream">
     
     <div class="container">
     
@@ -311,7 +310,7 @@ body {
     </section>
     
     <!-- امام جمعه -->
-    <section class="imam-section">
+    <section id="emame" class="imam-section">
     
     <div class="container">
     
@@ -346,7 +345,7 @@ body {
     
     </section>
 <!-- آرشیو خطبه‌ها -->
-<section class="khotbeh">
+<section id="khotbeh" class="khotbeh">
 <div class="container">
 
 <div class="section-title">
@@ -372,14 +371,19 @@ body {
 </div>
 
 <!-- فوتر -->
-<footer class="footer">
+<footer id="bama" class="footer">
 <div class="container">
 <h3>ستاد نماز جمعه مشهد</h3>
 <p>کلیه حقوق محفوظ است</p>
 </div>
 </footer>
 
-
+<div class="news-modal" id="newsModal">
+    <div class="news-box">
+        <span class="news-close" onclick="closeNews()">✖</span>
+        <div id="newsContent"></div>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="./js/main.js"></script>
 
